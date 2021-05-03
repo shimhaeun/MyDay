@@ -3,40 +3,53 @@ package org.ict.myday;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CalendarFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class CalendarFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    MutableLiveData<Object> mCalendar = new MutableLiveData<>();
+
+    public void setCalendar() {
+        GregorianCalendar cal = new GregorianCalendar(); // 오늘 날짜
+
+        ArrayList<Object> calendarList = new ArrayList<>();
+
+        for(int i = -300; i < 300; i++) {
+            try{
+                GregorianCalendar calendar
+                        = new GregorianCalendar(cal.get(Calendar.YEAR),
+                                        cal.get(Calendar.MONTH) + i,
+                                    1, 0, 0, 0);
+
+                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+                int max = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                for(int j = 0; j < dayOfWeek; j++) {
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public CalendarFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CalendarFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static CalendarFragment newInstance(String param1, String param2) {
         CalendarFragment fragment = new CalendarFragment();
         Bundle args = new Bundle();
